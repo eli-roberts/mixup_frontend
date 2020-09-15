@@ -22,4 +22,4 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .vscode
-src/TestUpload.js
+TestUpload.js
