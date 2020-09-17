@@ -3,28 +3,39 @@ import { Modal, Button, Fade, Tooltip, Pagination, PaginationItem, PaginationLin
 import { register } from '../../hooks/auth'
 
 const Home = props => {
+  // Use states set up to handle Modal View.
   const [modalToggle, setModal] = useState(false)
   const [inputHidden, setInputHidden] = useState(true)
-  const [active, setActive] = useState(true)
+  const [loginActive, setLogin] = useState(true)
+  const [registerActive, setRegister] = useState(!loginActive)
   const [buttonVal, setButton] = useState("Login")
   
+  // UseRef to handle login/register form data
   const username = useRef()
   const password = useRef()
   const verif_password = useRef()
   const email = useRef()
-  
+
+  // Functions to handle toggle between login/register modal display.
   const toggleModal = () => {
     setModal(!modalToggle)
   }
+  
+  const openLoginModal = () => {
+    setLogin(true)
+    setRegister(false)
+    setInputHidden(true)
+    setButton("Login")
+    setModal(!modalToggle)
+    
+  }
 
-  const toggleRegister = () => {
-    if(inputHidden === true){
-      setInputHidden(!inputHidden)
-      setButton("Register")
-    }
-    else{
-      return
-    }
+  const openRegisterModal = () => {
+    setLogin(false)
+    setRegister(true)
+    setInputHidden(false)
+    setButton("Register")
+    setModal(!modalToggle)
   }
 
   const toggleLogin = () => {
@@ -36,24 +47,39 @@ const Home = props => {
       return
     }
   }
+
+  // Functions to handle either login/register submits.
+  const toggleRegister = () => {
+    if(inputHidden === true){
+      setInputHidden(!inputHidden)
+      setButton("Register")
+    }
+    else{
+      return
+    }
+  }
+
+
   
-  const handleRegister
+  const handleRegister = () => {
+    return
+  }
 
   return (
     <>
 
       <h1>Welcome to MixUp!</h1>
-      <Button onClick={toggleModal}>Login</Button>
-      <Button onClick={toggleModal}>Register</Button>
+      <Button onClick={openLoginModal}>Login</Button>
+      <Button onClick={openRegisterModal}>Register</Button>
 
       <Modal isOpen={modalToggle} toggle={toggleModal} className="login-register-modal">
         <ModalHeader>
           <Pagination>
             <PaginationItem>
-              <PaginationLink onClick={toggleLogin}>Login</PaginationLink>
+              <PaginationLink active={loginActive} onClick={toggleLogin}>Login</PaginationLink>
             </PaginationItem>
             <PaginationItem>
-              <PaginationLink onClick={toggleRegister}>Register</PaginationLink>
+              <PaginationLink active={registerActive} onClick={toggleRegister}>Register</PaginationLink>
             </PaginationItem>
           </Pagination>
           <ModalBody>
