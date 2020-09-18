@@ -1,55 +1,54 @@
-// import { useState } from 'react'
+import { useState } from "react"
 
-// const auth = () => {
-//   const [authorized, setAuthorized] = useState(false)
+const useSimpleAuth = () => {
 
-//   const isAuthenticated = () => 
-//     authorized || localStorage.getItem("auth_token") !== null
-  
+    const [loggedIn, setIsLoggedIn] = useState(false)
 
-//   const register = registerData => {
-//     return fetch("http://127.0.0.1:8000",{
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//         "Accept": "application/json"
-//       },
-//       body: JSON.stringify(registerData)
-//     })
-//       .then(response = response.json())
-//       .then(response => {
-//       if("token" in response) {
-//         localStorage.setItem("auth_token", response.token)
-//         setAuthorized(true)
-//       }
-//     })
-//   }
+    const isAuthenticated = () =>
+        loggedIn || localStorage.getItem("auth_token") !== null
 
-//   const login = credentials => {
-//     return fetch("http://127.0.0.1:8000", {
-//       method: 'POST',
-//       headers: {
-//         "Content-Type": "application/json",
-//         "Accept": "application/json"
-//       },
-//       body: JSON.stringify(credentials)
-//     })
-//     .then(response => response.json())
-//     .then(response => {
-//       if ('valid' in response && response.valid && "token" in response) {
-//         localStorage.setItem("auth_token", response.token)
-//         setAuthorized(true)
-//       }
-//     })
-//   }
+    const register = userInfo => {
+        return fetch("http://127.0.0.1:8000/register/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(userInfo)
+        })
+            .then(response => response.json())
+            .then(response => {
+                if ("token" in response) {
+                    localStorage.setItem("auth_token", response.token)
+                    setIsLoggedIn(true)
+                }
+            })
+    }
 
-//   const logout = () => {
-//     setAuthorized(false)
-//     localStorage.removeItem("auth_token")
-//   }
+    const login = credentials => {
+        return fetch("http://127.0.0.1:8000/login/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(credentials)
+        })
+            .then(response => response.json())
+            .then(response => {
+                if ("valid" in response && response.valid && "token" in response) {
+                    localStorage.setItem("auth_token", response.token)
+                    setIsLoggedIn(true)
+                }
+            })
+    }
 
+    const logout = () => {
+        setIsLoggedIn(false)
+        localStorage.removeItem("auth_token")
+    }
 
-//   return { isAuthenticated, register, login, logout }
-// }
+    return { isAuthenticated, logout, login, register }
+}
 
-// export default auth
+export default useSimpleAuth

@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom"
 
 import Home from './homepage/Home.js'
 import App from '../TestUpload.js'
-
+import CreateTrack from './track/CreateTrack.js'
 
 const ApplicationView = props => {
   return (
@@ -24,7 +24,15 @@ const ApplicationView = props => {
           props => {return <App {...props}/>} 
         }
       />
+
+      <Route
+        exact path="/create"
+        render={
+          props => {return <CreateTrack {...props}/>}
+        }
+      />
       </>
+      
   )
 }
 
