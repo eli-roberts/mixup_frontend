@@ -37,6 +37,7 @@ const CreateTrack = props => {
       "bpm": bpm.current.value
     }
     console.table(newTrackData)
+    api.post()
   }
 
   useEffect(() => {
