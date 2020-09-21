@@ -31,7 +31,7 @@ export default {
         "Accept": "application/json",
         "Authorization": `Token ${localStorage.getItem("auth_token")}`
       },
-      body: json.stringify(postData)
+      body: JSON.stringify(postData)
     })
       .then(response => response.json())
   }

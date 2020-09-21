@@ -11,6 +11,7 @@ const CreateTrack = props => {
   const trackName = useRef()
   const [remixable, setRemixable] = useState(false)
   const [genreSelection, selectGenre] = useState("Genre")
+  const [genreId, setGenreId] = useState(0)
   const bpm = useRef()
   
   const getGenres = () => {
@@ -18,7 +19,8 @@ const CreateTrack = props => {
       .then(genreList => {
         const genreArr = []
         for(const genre in genreList){
-          genreArr.push(genreList[genre].genre_name)
+          const genreData = {key: genreList[genre].id, value: genreList[genre].genre_name}
+          genreArr.push(genreData)
         }
         setGenres(genreArr)
         console.table(genres)
@@ -28,16 +30,22 @@ const CreateTrack = props => {
   const toggleDrop = () => {
     setDropdown(!dropdown)
   }
-
+  const genreDropdown = (genre) => {
+    selectGenre(genre.value)
+    setGenreId(genre.key)
+  }
   const submit = () => {
     const newTrackData = {
       "track_name": trackName.current.value,
-      "genre": genreSelection,
-      "openForRemix": remixable,
+      "genre_name": genreId,
+      "open_for_remix": remixable,
       "bpm": bpm.current.value
     }
     console.table(newTrackData)
-    api.post()
+    api.post("tracks", newTrackData)
+      .then(newTrack => {
+        console.table(newTrack)
+      })
   }
 
   useEffect(() => {
@@ -65,7 +73,12 @@ const CreateTrack = props => {
               {genreSelection}
             </DropdownToggle>
             <DropdownMenu>
-              {genres.map(genre => <DropdownItem onClick={() => selectGenre(genre)}>{genre}</DropdownItem>)}
+              {genres.map(
+                genre => <DropdownItem  
+                key={genre.key} 
+                onClick={() => genreDropdown(genre)}>
+                  {genre.value}
+                    </DropdownItem>)}
             </DropdownMenu>
           </Dropdown>
         </InputGroup>
