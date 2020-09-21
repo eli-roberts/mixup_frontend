@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom"
 import Home from './homepage/Home.js'
 import App from '../TestUpload.js'
 import CreateTrack from './track/CreateTrack.js'
+import HomeLoggedIn from './homepage/HomeLoggedIn.js'
 
 const ApplicationView = props => {
   return (
@@ -31,6 +32,8 @@ const ApplicationView = props => {
           props => {return <CreateTrack {...props}/>}
         }
       />
+
+      
       </>
       
   )
