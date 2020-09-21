@@ -1,0 +1,27 @@
+.main-container{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.header-container{
+  display: flex;
+  align-items: center;
+  max-width: 36%
+}
+.subheader-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 45%
+}
+
+.text-container-div{
+  border-bottom: 3px solid black;
+  width: 100%
+}
+
+.button-container{
+  display: flex;
+  justify-content: space-evenly
+}

@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react'
-import {InputGroup, InputGroupAddon, InputGroupButtonDropdown, Input, InputGroupText, Button, Dropdown, DropdownItem, DropdownToggle, DropdownMenu} from 'reactstrap'
+import {InputGroup, InputGroupAddon, InputGroupButtonDropdown, Input, InputGroupText, Button, Dropdown, DropdownItem, DropdownToggle, DropdownMenu, Container} from 'reactstrap'
 import api from '../../hooks/api'
 import './CreateTrack.css'
 
@@ -23,7 +23,6 @@ const CreateTrack = props => {
           genreArr.push(genreData)
         }
         setGenres(genreArr)
-        console.table(genres)
       })
     
   }
@@ -43,9 +42,7 @@ const CreateTrack = props => {
     }
     console.table(newTrackData)
     api.post("tracks", newTrackData)
-      .then(newTrack => {
-        console.table(newTrack)
-      })
+      .then(props.history.push('/home'))
   }
 
   useEffect(() => {
@@ -54,58 +51,60 @@ const CreateTrack = props => {
   
   return (
     <>
-      <div className="create-track-input">
-        <InputGroup className="track-name-input">
-          <InputGroupAddon addonType="prepend">
-            <InputGroupText>Track Name</InputGroupText>
-          </InputGroupAddon>
-          <Input placeholder="Track Name" innerRef={trackName}/>
-        </InputGroup>
+      <Container className="temp">
+        <div className="create-track-input">
+          <InputGroup className="track-name-input">
+            <InputGroupAddon addonType="prepend">
+              <InputGroupText>Track Name</InputGroupText>
+            </InputGroupAddon>
+            <Input placeholder="Track Name" innerRef={trackName}/>
+          </InputGroup>
 
-        <br />
-
-        <InputGroup>
-        <InputGroupAddon addonType="prepend">
-          <InputGroupText>Select Genre</InputGroupText>
-        </InputGroupAddon>
-          <Dropdown isOpen={dropdown} toggle={toggleDrop}>
-            <DropdownToggle caret>
-              {genreSelection}
-            </DropdownToggle>
-            <DropdownMenu>
-              {genres.map(
-                genre => <DropdownItem  
-                key={genre.key} 
-                onClick={() => genreDropdown(genre)}>
-                  {genre.value}
-                    </DropdownItem>)}
-            </DropdownMenu>
-          </Dropdown>
-        </InputGroup>
-        <br/>
-        <InputGroup>
+          <br />
+        
+          <InputGroup>
           <InputGroupAddon addonType="prepend">
-            <InputGroupText>
-              Available to remix?
-            </InputGroupText>
+            <InputGroupText>Select Genre</InputGroupText>
           </InputGroupAddon>
-          <InputGroupAddon addonType="append">
-            <InputGroupText>
-              <Input addon type="checkbox" onChange={() => setRemixable(!remixable)}/>
-            </InputGroupText>
-          </InputGroupAddon>
-        </InputGroup>
-        <br/>
-        <InputGroup>
-          <InputGroupAddon addonType="prepend">
-            <InputGroupText>
-              Track Tempo
-            </InputGroupText>
-          </InputGroupAddon>
-          <Input type="number" innerRef={bpm}/>
-        </InputGroup>
-      <Button onClick={submit}>Submit</Button>
-      </div>
+            <Dropdown isOpen={dropdown} toggle={toggleDrop}>
+              <DropdownToggle caret>
+                {genreSelection}
+              </DropdownToggle>
+              <DropdownMenu>
+                {genres.map(
+                  genre => <DropdownItem  
+                  key={genre.key} 
+                  onClick={() => genreDropdown(genre)}>
+                    {genre.value}
+                      </DropdownItem>)}
+              </DropdownMenu>
+            </Dropdown>
+          </InputGroup>
+          <br/>
+          <InputGroup>
+            <InputGroupAddon addonType="prepend">
+              <InputGroupText>
+                Available to remix?
+              </InputGroupText>
+            </InputGroupAddon>
+            <InputGroupAddon addonType="append">
+              <InputGroupText>
+                <Input addon type="checkbox" onChange={() => setRemixable(!remixable)}/>
+              </InputGroupText>
+            </InputGroupAddon>
+          </InputGroup>
+          <br/>
+          <InputGroup>
+            <InputGroupAddon addonType="prepend">
+              <InputGroupText>
+                Track Tempo
+              </InputGroupText>
+            </InputGroupAddon>
+            <Input type="number" innerRef={bpm}/>
+          </InputGroup>
+        <Button onClick={submit} className="submit-btn">Submit</Button>
+        </div>
+      </Container>
     </>
   )
 }

@@ -84,7 +84,7 @@ const Home = props => {
       }
       console.log(newUser)
       register(newUser)
-      .then(props.history.push("/create"))
+      .then(props.history.push("/home"))
     }
 
     else if(buttonVal === "Login"){
@@ -100,7 +100,7 @@ const Home = props => {
           return
         }
         else{
-          props.history.push("/create")
+          props.history.push("/home")
         }
         
       })
