@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 import { Route, Redirect } from "react-router-dom"
 import { withRouter } from "react-router-dom"
 
@@ -8,10 +8,10 @@ import CreateTrack from './track/CreateTrack.js'
 import HomeLoggedIn from './homepage/HomeLoggedIn.js'
 
 const ApplicationView = props => {
+
+
   return (
     <>
-      {/* //Navbar Here */}
-
       <Route 
         exact path="/" 
         render={
@@ -27,13 +27,18 @@ const ApplicationView = props => {
       />
 
       <Route
-        exact path="/create"
+        exact path="/tracks/new"
         render={
           props => {return <CreateTrack {...props}/>}
         }
       />
 
-      
+      <Route
+        exact path="/home"
+        render={
+          props => {return <HomeLoggedIn {...props} />}
+        }
+      />
       </>
       
   )
