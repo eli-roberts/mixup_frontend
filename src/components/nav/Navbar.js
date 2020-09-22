@@ -14,7 +14,11 @@ import {
 
 
 const MixUpNav = props => {
-
+  
+  const logout = () => {
+    localStorage.removeItem("user_id")
+    localStorage.removeItem("auth_token")
+  }
   return(
     <>
       <Navbar color="light" light expand="md">
@@ -30,7 +34,7 @@ const MixUpNav = props => {
             <NavLink href="/tracks/remix">Remix a Track</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="/" onClick={() => sessionStorage.removeItem('auth_token')}>Log Out</NavLink>
+            <NavLink href="/" onClick={logout}>Log Out</NavLink>
           </NavItem>
         </Nav>
       </Navbar>

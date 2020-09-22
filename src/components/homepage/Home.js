@@ -82,7 +82,6 @@ const Home = props => {
         'email': email.current.value,
         'password': password.current.value
       }
-      console.log(newUser)
       register(newUser)
       .then(props.history.push("/home"))
     }
