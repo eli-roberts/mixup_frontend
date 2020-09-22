@@ -40,7 +40,6 @@ const CreateTrack = props => {
       "open_for_remix": remixable,
       "bpm": bpm.current.value
     }
-    console.table(newTrackData)
     api.post("tracks", newTrackData)
       .then(props.history.push('/home'))
   }

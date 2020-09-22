@@ -50,7 +50,7 @@ const ApplicationView = props => {
       />
 
       <Route
-        exact path="/tracks/:id(\d)" 
+        exact path="/tracks/:id(\d+)" 
         render={
           props => {return <TrackDetail id={props.match.params.id}/>}
         }/>

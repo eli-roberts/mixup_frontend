@@ -10,7 +10,7 @@ export default {
         "Authorization": `Token ${localStorage.getItem("auth_token")}`
       }
     })
-        .then(response => response.json())
+      .then(response => response.json())
   },
   get(collection, id) {
     return fetch(`${url}/${collection}/${id}`, {
@@ -58,5 +58,25 @@ export default {
 
     })
     .then(genre => genre.json())
-  }
+  },
+  delete(collection, id) {
+    return fetch(`${url}/${collection}/${id}` , {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${localStorage.getItem("auth_token")}`
+      }
+    })
+  },
+  getTrackFiles(trackId) {
+    return fetch(`${url}/files?track=${trackId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": `Token ${localStorage.getItem("auth_token")}`
+      }
+    })
+      .then(response => response.json())
+    }
 }

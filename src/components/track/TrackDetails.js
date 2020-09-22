@@ -3,6 +3,7 @@ import api from '../../hooks/api'
 import {Button, Input} from 'reactstrap'
 import TrackFile from './TrackFile.js'
 import axios from 'axios'
+import {withRouter} from 'react-router-dom'
 
 
 const TrackDetail = props => {
@@ -16,33 +17,52 @@ const TrackDetail = props => {
   const [fileToPost, setFile] = useState()
   const [fileLink, setFileLink] = useState("")
   const [uploadLink, setUploadLink] = useState("")
-
+  const [currentUserName, setCurrentUser] = useState()
+  const [currentGenreId, setGenreId] = useState()
+  const [deleteHidden, setDeleteHidden] = useState(true)
+  const [files, setFiles] = useState([])
   const fileName = useRef()
   const fileDesc = useRef()
-  const trackFiles = []
   
+
+  const getCurrentUser = () => {
+    api.get('artists', parseInt(localStorage.getItem('user_id')))
+      .then(res => {
+        setCurrentUser(res.artist_name)
+      })
+  }
   const getTrackData = () => {
     api.get('tracks', trackId)
     .then(data => {
       setTrack(data)
       getGenre(data.genre)
       getCreator(data.creatorId)
+      getCurrentUser()
     })
+  }
+
+  const deleteTrack = () => {
+    api.delete('tracks', trackData.id)
+    props.history.push('/tracks')
+    window.location.reload()
   }
 
   const getGenre = (url) => {
     api.getGenre(url)
     .then(genre => {
       setGenre(genre.genre_name)
+      setGenreId(genre.id)
     })
   }
 
-  const getTracks = () => {
-    api.getAll('tracks')
+  const getFiles = (id) => {
+    const trackFiles = []
+    api.getTrackFiles(id)
     .then(tracks => {
       for(const track in tracks){
-        console.log(track)
+        trackFiles.push(tracks[track])
       }
+      setFiles(trackFiles)
     })
   }
 
@@ -51,6 +71,9 @@ const TrackDetail = props => {
     .then(creator => {
       setCreator(creator.artist_name)
       setCreatorId(creator.id)
+      if(creator.id === parseInt(localStorage.getItem('user_id'))){
+        setDeleteHidden(false)
+      }
     })
   }
 
@@ -93,10 +116,6 @@ const TrackDetail = props => {
   }
 
   const handleUpload = () => {
-    // const postData = new FormData()
-    // for(const key in fileToPost){
-    //   postData.append(key, fileToPost[key])
-    // }
     axios.post(uploadLink, fileToPost)
     const newFile = {
       'file_name': fileName.current.value,
@@ -109,8 +128,35 @@ const TrackDetail = props => {
   }
 
   const createRemix = () => {
+    console.log(files)
     const currentUser = parseInt(localStorage.getItem("user_id"))
-    console.log(creatorId, currentUser)
+    let remixId = 0
+    if(creatorId === currentUser){
+      return window.alert("You can't remix a track you created!")
+    }
+    const remixData = {
+      "track_name": trackData.track_name + ' (' + currentUserName + ' Remix)',
+      'genre_name': currentGenreId,
+      'open_for_remix': false,
+      'bpm': trackData.bpm
+    }
+    api.post('tracks', remixData)
+    .then(res => {
+      remixId = res.id
+    })
+    .then(() => {
+      for(const file in files){
+        const fileToRemix = {
+          'file_name': files[file].name,
+          'file_description': files[file].description,
+          'track_id': remixId,
+          'file_url': files[file].url,
+        }
+        api.post('files', fileToRemix)
+      }
+      props.history.push(`/tracks/${remixId}`)
+      window.location.reload()
+    })
   }
 
   const toggleUploadDiv = () => {
@@ -120,11 +166,13 @@ const TrackDetail = props => {
 
   useEffect(() => {
     getTrackData()
+    getFiles(trackId)
   }, [])
 
   return(
     <>
       <h1>{trackData.track_name} - {trackCreator}</h1>
+      <Button hidden={deleteHidden} onClick={deleteTrack}>Delete</Button>
       <h2>{trackGenre} | {trackData.bpm} BPM</h2>
       <Button onClick={createRemix}>Remix</Button>
       <hr />
@@ -137,9 +185,10 @@ const TrackDetail = props => {
         <Input placeholder="File Description" innerRef={fileDesc}/>
         <input type="file" accept="audio/*" onChange={onUpload}/>
         <Button onClick={handleUpload}>Upload</Button>
+        {files.map(file => <TrackFile {...props} data={file} key={file.id}/>)}
       </div>
     </>
   )
 }
 
-export default TrackDetail
+export default withRouter(TrackDetail)
