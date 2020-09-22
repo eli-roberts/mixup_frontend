@@ -25,7 +25,6 @@ const TrackList = props => {
       <h1>Hello</h1>
       <div className="track-cards">
         {tracks.map(track => <TrackCard {...props} data={track} key={track.id}/>)}
-        <Button onClick={()=> console.log(tracks)}>Test</Button>
       </div>
     </>
   )
