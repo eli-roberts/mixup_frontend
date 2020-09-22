@@ -6,6 +6,7 @@ import './TrackCard.css'
 const TrackCard = props => {
   const trackData = props.data
   const [trackCreator, setCreator] = useState()
+  const [trackGenre, setGenre] = useState()
 
   const getCreator = () => {
     api.getCreator(trackData.creatorId)
@@ -15,15 +16,26 @@ const TrackCard = props => {
 
   }
 
+  const getGenre = () => {
+    api.getGenre(trackData.genre)
+    .then(genre => {
+      setGenre(genre.genre_name)
+    })
+  }
+
   useEffect(() => {
     getCreator()
+    getGenre()
   },[])
 
   return(
     <>
       <Card className="track-card">
-        <CardTitle>{trackData.track_name}</CardTitle>
+        <CardTitle className="card-title">{trackData.track_name}</CardTitle>
         <CardSubtitle>Produced By: {trackCreator}</CardSubtitle>
+        <CardBody className="card-bpm">{trackData.bpm} BPM</CardBody>
+        <CardBody className="card-genre">{trackGenre}</CardBody>
+        <Button onClick={() => props.history.push(`/tracks/${trackData.id}`)} size="sm">Details</Button>
       </Card>
     </>
   )

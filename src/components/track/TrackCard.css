@@ -1,3 +1,20 @@
 .track-card{
   max-width: 18%;
+  display: flex;
+  align-items: center;
+}
+
+.card-bpm{
+  padding-top: 5px;
+  padding-bottom: 0px;
+}
+
+.card-genre{
+  padding-top: 0px;
+  padding-bottom: 3px
+}
+
+.card-title{
+  font-weight: bold;
+  border-bottom: 1px solid black
 }
