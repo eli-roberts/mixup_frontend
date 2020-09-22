@@ -34,6 +34,29 @@ export default {
       body: JSON.stringify(postData)
     })
       .then(response => response.json())
-  }
+  },
+  getCreator(url) {
+    return fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": `Token ${localStorage.getItem("auth_token")}`
+      }
 
+    })
+    .then(creator => creator.json())
+  },
+  getGenre(url) {
+    return fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": `Token ${localStorage.getItem("auth_token")}`
+      }
+
+    })
+    .then(genre => genre.json())
+  }
 }

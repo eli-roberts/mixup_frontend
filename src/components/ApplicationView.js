@@ -6,6 +6,7 @@ import Home from './homepage/Home.js'
 import App from '../TestUpload.js'
 import CreateTrack from './track/CreateTrack.js'
 import HomeLoggedIn from './homepage/HomeLoggedIn.js'
+import TrackList from './track/TrackList.js'
 
 const ApplicationView = props => {
 
@@ -37,6 +38,13 @@ const ApplicationView = props => {
         exact path="/home"
         render={
           props => {return <HomeLoggedIn {...props} />}
+        }
+      />
+
+      <Route
+      exact path="/tracks"
+      render={
+        props => {return <TrackList {...props} />}
         }
       />
       </>
