@@ -7,6 +7,7 @@ import App from '../TestUpload.js'
 import CreateTrack from './track/CreateTrack.js'
 import HomeLoggedIn from './homepage/HomeLoggedIn.js'
 import TrackList from './track/TrackList.js'
+import TrackDetail from './track/TrackDetails.js'
 
 const ApplicationView = props => {
 
@@ -47,8 +48,16 @@ const ApplicationView = props => {
         props => {return <TrackList {...props} />}
         }
       />
-      </>
-      
+
+      <Route
+        exact path="/tracks/:id(\d)" 
+        render={
+          props => {return <TrackDetail id={props.match.params.id}/>}
+        }/>
+
+
+
+      </>  
   )
 }
 
