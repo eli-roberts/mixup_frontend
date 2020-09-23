@@ -111,5 +111,16 @@ export default {
       }
     })
     .then(response => response.json())
-  }
+  },
+  put(collection, id, postData) {
+    return fetch(`${url}/${collection}/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": `Token ${localStorage.getItem("auth_token")}`
+      },
+      body: JSON.stringify(postData)
+    })
+  },
 }
