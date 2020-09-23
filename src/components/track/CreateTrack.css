@@ -11,3 +11,8 @@
   align-items: center;
   justify-content: space-around
 }
+
+.collaborator_input{
+  display: flex
+}
+
