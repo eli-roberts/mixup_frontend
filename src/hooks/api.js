@@ -89,5 +89,27 @@ export default {
       }
     })
     .then(response => response.json())
+  },
+  getWithParam(section, param, value) {
+    return fetch(`${url}/${section}?${param}=${value}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": `Token ${localStorage.getItem("auth_token")}`
+      }
+    })
+    .then(response => response.json())
+  },
+  getLinkedData(dataUrl){
+    return fetch(`${dataUrl}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": `Token ${localStorage.getItem("auth_token")}`
+      }
+    })
+    .then(response => response.json())
   }
 }
