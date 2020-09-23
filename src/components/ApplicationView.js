@@ -9,6 +9,7 @@ import HomeLoggedIn from './homepage/HomeLoggedIn.js'
 import TrackList from './track/TrackList.js'
 import TrackDetail from './track/TrackDetails.js'
 import RemixableTrackList from './track/RemixableTrackList'
+import TrackEdit from './track/TrackEdit.js'
 
 const ApplicationView = props => {
 
@@ -60,6 +61,12 @@ const ApplicationView = props => {
           exact path='/tracks/remixable'
           render={
             props => {return <RemixableTrackList {...props}/>}
+          }/>
+
+        <Route
+          exact path='/tracks/:id(\d+)/edit'
+          render={
+            props => {return <TrackEdit id={props.match.params.id}/>}
           }/>
 
 

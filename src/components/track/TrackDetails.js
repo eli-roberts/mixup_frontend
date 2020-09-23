@@ -205,6 +205,7 @@ const TrackDetail = props => {
     <>
       <h1>{trackData.track_name} - {trackCreator}</h1>
       <Button hidden={deleteHidden} onClick={deleteTrack}>Delete</Button>
+      <Button hidden={deleteHidden} onClick={() => props.history.push(`/tracks/${trackId}/edit`)}>Edit</Button>
       <h2>{trackGenre} | {trackData.bpm} BPM</h2>
       <Button onClick={createRemix}>Remix</Button>
       <hr />
