@@ -19,7 +19,7 @@ const HomeLoggedIn = props => {
         <Container className="button-container">
           <Button onClick={() => {props.history.push('/tracks/new')}}>Create a Track</Button>
           <Button onClick={() => {props.history.push('/tracks')}}>Check out Some Tracks</Button>
-          <Button onClick={() => {props.history.push('/tracks/remix')}}>Remix a Track</Button>
+          <Button onClick={() => {props.history.push('/tracks/remixable')}}>Remix a Track</Button>
         </Container>
       </Container>
     </>
