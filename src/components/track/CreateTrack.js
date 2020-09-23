@@ -13,6 +13,8 @@ const CreateTrack = props => {
   const [genreSelection, selectGenre] = useState("Genre")
   const [genreId, setGenreId] = useState(0)
   const bpm = useRef()
+  const [collaboratorName, setCollabName] = useState()
+  const [collaborators, setCollaborators] = useState([])
   
   const getGenres = () => {
     api.getAll('genres')
@@ -25,6 +27,19 @@ const CreateTrack = props => {
         setGenres(genreArr)
       })
     
+  }
+
+  const addToCollaborators = () => {
+    if(collaboratorName){
+        const collabToAdd = collaborators
+        collabToAdd.push(collaboratorName)
+        setCollaborators(collabToAdd)
+        setCollabName("")
+      return
+    }
+    else{
+      return window.alert('Please specify a user to add as a collaborator.')
+    }
   }
   const toggleDrop = () => {
     setDropdown(!dropdown)
@@ -41,7 +56,18 @@ const CreateTrack = props => {
       "bpm": bpm.current.value
     }
     api.post("tracks", newTrackData)
-      .then(props.history.push('/home'))
+      .then(res => {
+        if(collaborators.length > 0){
+          for(const collaborator in collaborators){
+            const newCollaborator = {
+              'track_id': res.id,
+              'artist_name': collaborators[collaborator]
+            }
+            api.post('collaborators', newCollaborator)
+          }
+        }
+        props.history.push(`/tracks/${res.id}`)
+      })
   }
 
   useEffect(() => {
@@ -101,6 +127,19 @@ const CreateTrack = props => {
             </InputGroupAddon>
             <Input type="number" innerRef={bpm}/>
           </InputGroup>
+          <br/>
+          <InputGroup>
+            <InputGroupAddon addonType="prepend">
+              <InputGroupText>
+                Add Collaborator?
+              </InputGroupText>
+            </InputGroupAddon>
+            <div className="collaborator_input">
+              <Input placeholder="Username" onChange={(e) => setCollabName(e.currentTarget.value)} value={collaboratorName}/>
+              <Button className="add-collab-btn" outline size='sm' onClick={addToCollaborators}>+</Button>
+            </div>
+          </InputGroup>
+          <br/>
         <Button onClick={submit} className="submit-btn">Submit</Button>
         </div>
       </Container>
