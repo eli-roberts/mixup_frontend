@@ -80,7 +80,7 @@ export default {
       .then(response => response.json())
     },
   getRemixableOnly() {
-    return fetch(`${url}/tracks?openForRemix=true`, {
+    return fetch(`${url}/tracks?remixable=True`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

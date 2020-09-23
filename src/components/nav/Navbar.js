@@ -31,7 +31,7 @@ const MixUpNav = props => {
             <NavLink href="/tracks/new">Create a Track</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="/tracks/remix">Remix a Track</NavLink>
+            <NavLink href="/tracks/remixable">Remix a Track</NavLink>
           </NavItem>
           <NavItem>
             <NavLink href="/" onClick={logout}>Log Out</NavLink>
