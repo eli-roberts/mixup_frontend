@@ -78,5 +78,16 @@ export default {
       }
     })
       .then(response => response.json())
-    }
+    },
+  getRemixableOnly() {
+    return fetch(`${url}/tracks?openForRemix=true`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": `Token ${localStorage.getItem("auth_token")}`
+      }
+    })
+    .then(response => response.json())
+  }
 }
