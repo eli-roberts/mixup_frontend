@@ -11,9 +11,7 @@ const TrackList = props => {
   const getTracks = () => {
     api.getAll("tracks")
     .then(response => {
-      console.table(response)
       setTracks(response)
-      console.table(tracks)
     })
   }
   useEffect(() => {
