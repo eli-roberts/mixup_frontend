@@ -4,6 +4,7 @@ import {Button, Input} from 'reactstrap'
 import TrackFile from './TrackFile.js'
 import axios from 'axios'
 import {withRouter} from 'react-router-dom'
+import CollaboratorList from './Collaborators.js'
 
 
 const TrackDetail = props => {
@@ -21,8 +22,12 @@ const TrackDetail = props => {
   const [currentGenreId, setGenreId] = useState()
   const [deleteHidden, setDeleteHidden] = useState(true)
   const [files, setFiles] = useState([])
+  const [trackCollabs, setTrackCollabs] = useState([])
+  const [collabIds, setCollabIds] = useState([])
+  const [collabNames, setCollabNames] = useState([])
   const fileName = useRef()
   const fileDesc = useRef()
+  const [currIsCreator, setCurrCreator] = useState(false)
   
 
   const getCurrentUser = () => {
@@ -56,14 +61,39 @@ const TrackDetail = props => {
   }
 
   const getFiles = (id) => {
+
     const trackFiles = []
     api.getTrackFiles(id)
-    .then(tracks => {
-      for(const track in tracks){
-        trackFiles.push(tracks[track])
+    .then(files => {
+      for(const file in files){
+        trackFiles.push(files[file])
       }
       setFiles(trackFiles)
     })
+  }
+
+  const getCollaborators = (trackId) => {
+    const collabs = []
+    const names = []
+    const ids = []
+    api.getWithParam('collaborators', 'track', trackId)
+      .then(collaborators => {
+        for(const x in collaborators){
+          collabs.push(collaborators[x])
+
+        }
+        console.log(collabs)
+        for(const x in collabs){
+          api.getLinkedData(collabs[x].artist)
+          .then(artist => {
+            names.push({'name': artist.artist_name, 'id': artist.id, 'collabId': collabs[x].id })
+            ids.push(artist.id)
+          })
+        }
+        console.log(names, ids)
+        setCollabNames(names)
+        setCollabIds(ids)
+      })
   }
 
   const getCreator = (url) => {
@@ -73,6 +103,7 @@ const TrackDetail = props => {
       setCreatorId(creator.id)
       if(creator.id === parseInt(localStorage.getItem('user_id'))){
         setDeleteHidden(false)
+        setCurrCreator(true)
       }
     })
   }
@@ -167,8 +198,9 @@ const TrackDetail = props => {
   useEffect(() => {
     getTrackData()
     getFiles(trackId)
+    getCollaborators()
   }, [])
-
+  
   return(
     <>
       <h1>{trackData.track_name} - {trackCreator}</h1>
@@ -176,17 +208,25 @@ const TrackDetail = props => {
       <h2>{trackGenre} | {trackData.bpm} BPM</h2>
       <Button onClick={createRemix}>Remix</Button>
       <hr />
-      <div className="add_file"> 
-        <h3>Track Files</h3> 
-        <Button outline color="success" size="sm" onClick={toggleUploadDiv}>+</Button>
+      <div className="track_files">
+        <div className="add_file"> 
+          <h3>Track Files</h3> 
+          <Button outline color="success" size="sm" onClick={toggleUploadDiv}>+</Button>
+        </div>
+        <div hidden={uploadDiv}>
+          <Input placeholder="File Name" innerRef={fileName}/>
+          <Input placeholder="File Description" innerRef={fileDesc}/>
+          <input type="file" accept="audio/*" onChange={onUpload}/>
+          <Button onClick={handleUpload}>Upload</Button>
+          {files.map(file => <TrackFile {...props} data={file} key={file.id}/>)}
+        </div>
       </div>
-      <div hidden={uploadDiv}>
-        <Input placeholder="File Name" innerRef={fileName}/>
-        <Input placeholder="File Description" innerRef={fileDesc}/>
-        <input type="file" accept="audio/*" onChange={onUpload}/>
-        <Button onClick={handleUpload}>Upload</Button>
-        {files.map(file => <TrackFile {...props} data={file} key={file.id}/>)}
+      <div className="collaborators">
+        <h3>Collaborators</h3>
+        {collabNames.map(name => <CollaboratorList {...props} data={name} creator={currIsCreator} key={name.id}/>)}
       </div>
+      <Button onClick={() => console.log(collabNames)}>Test</Button>
+      
     </>
   )
 }
