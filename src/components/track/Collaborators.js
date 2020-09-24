@@ -3,36 +3,42 @@ import {Button} from 'reactstrap'
 import api from '../../hooks/api'
 
 const CollaboratorList = props => {
-  const [currentUser, setCurrentUser] = useState()
-  const [isLoading, setIsLoading] = useState(true)
+  // const [isLoading, setIsLoading] = useState(true)
   const [isCurrentUser, setIsCurrentUser] = useState(false)
-
+  const [artistInfo, setArtistInfo] = useState({'artist_name': 'test', 'id': 0})
   const collabData = props.data
+  
   const removeCollaborator = () => {
     api.delete('collaborators', collabData.collabId)
   }
+
+  const getArtistInfo = () => {
+    api.getLinkedData(collabData.artist)
+    .then(setArtistInfo)
+  }
+
   const getCurrentUser = () => {
-    api.get('artists', parseInt(localStorage.getItem('user_id')))
-      .then(res => {
-        setCurrentUser(res.id)
-        if(res.id === collabData.id){
-          setIsCurrentUser(true)
-        }
-        setIsLoading(false)
-      })
+    if(artistInfo.id == localStorage.getItem('user_id')){
+      setIsCurrentUser(true)
+      // setIsLoading(false)
+    }
   }
 
   useEffect(() => {
-    getCurrentUser()
-  }, [])
+    getArtistInfo()
+  },[props.data])
 
-  if(isLoading){
-    return null
-  }
+  useEffect(() => {
+    getCurrentUser()
+  }, [artistInfo])
+
+  // if(isLoading){
+  //   return null
+  // }
 
   return(
     <>
-      <p>{collabData.name} </p>
+      <p>{artistInfo.artist_name} </p>
       {props.creator
       ?
       <>
