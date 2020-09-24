@@ -43,7 +43,6 @@ const TrackEdit = props => {
             if(genres[genre].url == data.genre){
               setGenreId(genres[genre].id)
               selectGenre(genres[genre].genre_name)
-              console.log(genreId)
             }
             const genreData = {key: genres[genre].id, value: genres[genre].genre_name}
             genreArr.push(genreData)
