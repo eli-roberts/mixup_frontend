@@ -11,7 +11,6 @@ const RemixableTrackList = props => {
     api.getRemixableOnly()
     .then(response => {
       setTracks(response)
-      console.table(response)
     })
   }
   useEffect(() => {

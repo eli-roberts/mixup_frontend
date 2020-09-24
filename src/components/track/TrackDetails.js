@@ -82,30 +82,6 @@ const TrackDetail = props => {
         setTrackCollabs(collaborators)
         setCollabsLoading(false)
       })}
-  //       const collabs = []
-  //       const names = []
-  //       const ids = []
-  //       for(const x in collaborators){
-  //         collabs.push(collaborators[x])
-
-  //       }
-  //       for(const x in collabs){
-  //         api.getLinkedData(collabs[x].artist)
-  //         .then(artist => {
-  //           names.push({'name': artist.artist_name, 'id': artist.id, 'collabId': collabs[x].id })
-  //           ids.push(artist.id)
-  //         })
-  //       }
-  //       console.log('COLLABS:',collabs)
-  //       const data = {names, ids}
-  //       return data
-  //     })
-  //     .then(data => {
-  //       setCollabNames(data.names)
-  //       setCollabIds(data.ids)
-  //       setCollabsLoading(false)
-  //     })
-  // }
 
   const getCreator = (url) => {
     api.getCreator(url)
@@ -166,11 +142,9 @@ const TrackDetail = props => {
       'file_url': fileLink,
     }
     api.post('files', newFile)
-    .then(res => {console.log(res)})
   }
 
   const createRemix = () => {
-    console.log(files)
     const currentUser = parseInt(localStorage.getItem("user_id"))
     let remixId = 0
     if(creatorId === currentUser){
@@ -251,7 +225,6 @@ const TrackDetail = props => {
         <h3>Collaborators</h3>
         {trackCollabs.map(collaborator => <CollaboratorList {...props} data={collaborator} creator={currIsCreator} key={collaborator.id}/>)}
       </div>
-      <Button onClick={() => {console.log(files)}}>Files</Button>
     </>
   )
 }
