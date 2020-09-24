@@ -2,12 +2,12 @@ import React, {useState, useRef} from 'react'
 import {Toast, ToastBody, ToastHeader} from 'reactstrap'
 
 const TrackFile = props => {
-  const fileData = props.file
+  const fileData = props.data
 
   return(
     <> 
       <audio controls>
-        <source src="none"/>
+        <source src={fileData.url}/>
       </audio>
     </>
   )

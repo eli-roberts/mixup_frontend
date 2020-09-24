@@ -9,6 +9,9 @@ import CollaboratorList from './Collaborators.js'
 
 const TrackDetail = props => {
   const trackId = props.id
+  const [dataLoading, setDataLoading] = useState(true)
+  const [collabsLoading, setCollabsLoading] = useState(true)
+  const [filesLoading, setFilesLoading] = useState(true) 
 
   const [trackData, setTrack] = useState({})
   const [trackGenre, setGenre] = useState()
@@ -42,7 +45,7 @@ const TrackDetail = props => {
       setTrack(data)
       getGenre(data.genre)
       getCreator(data.creatorId)
-      getCurrentUser()
+      setDataLoading(false)
     })
   }
 
@@ -61,7 +64,6 @@ const TrackDetail = props => {
   }
 
   const getFiles = (id) => {
-
     const trackFiles = []
     api.getTrackFiles(id)
     .then(files => {
@@ -69,32 +71,41 @@ const TrackDetail = props => {
         trackFiles.push(files[file])
       }
       setFiles(trackFiles)
+      setFilesLoading(false)
     })
   }
 
   const getCollaborators = (trackId) => {
-    const collabs = []
-    const names = []
-    const ids = []
+
     api.getWithParam('collaborators', 'track', trackId)
       .then(collaborators => {
-        for(const x in collaborators){
-          collabs.push(collaborators[x])
+        setTrackCollabs(collaborators)
+        setCollabsLoading(false)
+      })}
+  //       const collabs = []
+  //       const names = []
+  //       const ids = []
+  //       for(const x in collaborators){
+  //         collabs.push(collaborators[x])
 
-        }
-        console.log(collabs)
-        for(const x in collabs){
-          api.getLinkedData(collabs[x].artist)
-          .then(artist => {
-            names.push({'name': artist.artist_name, 'id': artist.id, 'collabId': collabs[x].id })
-            ids.push(artist.id)
-          })
-        }
-        console.log(names, ids)
-        setCollabNames(names)
-        setCollabIds(ids)
-      })
-  }
+  //       }
+  //       for(const x in collabs){
+  //         api.getLinkedData(collabs[x].artist)
+  //         .then(artist => {
+  //           names.push({'name': artist.artist_name, 'id': artist.id, 'collabId': collabs[x].id })
+  //           ids.push(artist.id)
+  //         })
+  //       }
+  //       console.log('COLLABS:',collabs)
+  //       const data = {names, ids}
+  //       return data
+  //     })
+  //     .then(data => {
+  //       setCollabNames(data.names)
+  //       setCollabIds(data.ids)
+  //       setCollabsLoading(false)
+  //     })
+  // }
 
   const getCreator = (url) => {
     api.getCreator(url)
@@ -196,11 +207,25 @@ const TrackDetail = props => {
   
 
   useEffect(() => {
-    getTrackData()
-    getFiles(trackId)
-    getCollaborators()
+    getCurrentUser()
+
   }, [])
-  
+  useEffect(() => {
+    getTrackData()
+
+  }, [])
+  useEffect(() => {
+    getCollaborators(trackId)
+
+  }, [])
+  useEffect(() => {
+    getFiles(trackId)
+  }, [])
+
+  if(dataLoading || collabsLoading || filesLoading){
+    return(<><h1>Track Data Loading...</h1></>)
+  }
+
   return(
     <>
       <h1>{trackData.track_name} - {trackCreator}</h1>
@@ -213,21 +238,20 @@ const TrackDetail = props => {
         <div className="add_file"> 
           <h3>Track Files</h3> 
           <Button outline color="success" size="sm" onClick={toggleUploadDiv}>+</Button>
+          {files.map(file => <TrackFile {...props} data={file} key={file.id}/>)}
         </div>
         <div hidden={uploadDiv}>
           <Input placeholder="File Name" innerRef={fileName}/>
           <Input placeholder="File Description" innerRef={fileDesc}/>
           <input type="file" accept="audio/*" onChange={onUpload}/>
           <Button onClick={handleUpload}>Upload</Button>
-          {files.map(file => <TrackFile {...props} data={file} key={file.id}/>)}
         </div>
       </div>
       <div className="collaborators">
         <h3>Collaborators</h3>
-        {collabNames.map(name => <CollaboratorList {...props} data={name} creator={currIsCreator} key={name.id}/>)}
+        {trackCollabs.map(collaborator => <CollaboratorList {...props} data={collaborator} creator={currIsCreator} key={collaborator.id}/>)}
       </div>
-      <Button onClick={() => console.log(collabNames)}>Test</Button>
-      
+      <Button onClick={() => {console.log(files)}}>Files</Button>
     </>
   )
 }
