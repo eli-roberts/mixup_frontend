@@ -1,6 +1,7 @@
 import React, {useState, useRef} from 'react'
-import { Modal, Button, Fade, Tooltip, Pagination, PaginationItem, PaginationLink, ModalHeader, ModalBody } from 'reactstrap'
+import { Modal, Button, Fade, Tooltip, Pagination, PaginationItem, PaginationLink, ModalHeader, ModalBody, Container } from 'reactstrap'
 import useSimpleAuth  from '../../hooks/auth'
+import './Home.css'
 
 const Home = props => {
   // Use states set up to handle Modal View.
@@ -108,11 +109,13 @@ const Home = props => {
 
   return (
     <>
-
-      <h1>Welcome to MixUp!</h1>
-      <Button onClick={openLoginModal}>Login</Button>
-      <Button onClick={openRegisterModal}>Register</Button>
-
+      <Container className="header-btns">
+        <h1 className="home-header">Welcome to MixUp!</h1>
+        <div className="login-register-btns">
+          <Button onClick={openLoginModal}>Login</Button>
+          <Button onClick={openRegisterModal}>Register</Button>
+        </div>
+      </Container>
       <Modal isOpen={modalToggle} toggle={toggleModal} className="login-register-modal">
         <ModalHeader>
           <Pagination>
