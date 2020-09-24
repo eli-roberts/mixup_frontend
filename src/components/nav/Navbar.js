@@ -1,24 +1,33 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { 
-  Collapse,
   Navbar,
   Nav,
   NavItem,
   NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
   NavbarText
 } from 'reactstrap'
 
 
+
 const MixUpNav = props => {
+  const authorized = localStorage.getItem('auth_token')
+
   
   const logout = () => {
     localStorage.removeItem("user_id")
     localStorage.removeItem("auth_token")
   }
+
+  if(!authorized){
+    return(
+      <> 
+        <Navbar color="light" expand="md">
+          <NavbarText>MixUp</NavbarText>
+        </Navbar>
+      </>
+    )
+  }
+
   return(
     <>
       <Navbar color="light" light expand="md">
