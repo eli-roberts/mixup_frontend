@@ -110,7 +110,7 @@ const Home = props => {
   return (
     <>
       <Container className="header-btns">
-        <h1 className="home-header">Welcome to MixUp!</h1>
+        <img src="https://photofantastic.s3.us-east-2.amazonaws.com/homepage+logo.png" className="homepage-logo"/>
         <div className="login-register-btns">
           <Button onClick={openLoginModal}>Login</Button>
           <Button onClick={openRegisterModal}>Register</Button>
