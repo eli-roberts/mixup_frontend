@@ -84,7 +84,9 @@ const Home = props => {
         'password': password.current.value
       }
       register(newUser)
-      .then(props.history.push("/home"))
+      .then(() => {props.history.push("/home")
+      window.location.reload()})
+      
     }
 
     else if(buttonVal === "Login"){
@@ -101,6 +103,7 @@ const Home = props => {
         }
         else{
           props.history.push("/home")
+          window.location.reload()
         }
         
       })
@@ -112,57 +115,57 @@ const Home = props => {
       <Container className="header-btns">
         <img src="https://photofantastic.s3.us-east-2.amazonaws.com/homepage+logo.png" className="homepage-logo"/>
         <div className="login-register-btns">
-          <Button onClick={openLoginModal}>Login</Button>
-          <Button onClick={openRegisterModal}>Register</Button>
+          <Button active={false}className='btn-login' onClick={openLoginModal}>Login</Button>
+          <Button className='btn-register' onClick={openRegisterModal}>Register</Button>
         </div>
       </Container>
       <Modal isOpen={modalToggle} toggle={toggleModal} className="login-register-modal">
         <Container className="login-reg-container">
           <div className="modal-header-btns">
-            <ModalHeader>
+            <ModalHeader className="modal-header">
               <Pagination>
                 <PaginationItem>
-                  <PaginationLink active={loginActive} onClick={toggleLogin}>Login</PaginationLink>
+                  <PaginationLink className="login-active" active={loginActive} onClick={toggleLogin}>Login</PaginationLink>
                 </PaginationItem>
                 <PaginationItem>
-                  <PaginationLink active={registerActive} onClick={toggleRegister}>Register</PaginationLink>
+                  <PaginationLink className="register-active" active={registerActive} onClick={toggleRegister}>Register</PaginationLink>
                 </PaginationItem>
               </Pagination>
             </ModalHeader>
           </div>
           <div className="login-register-form">
-              <ModalBody>
+              <ModalBody className='modal-body'>
                 <InputGroup className="login-username">
                   <InputGroupAddon addonType="prepend">
-                    <InputGroupText>Username:</InputGroupText>
+                    <InputGroupText className="input-addon">Username:</InputGroupText>
                   </InputGroupAddon>
-                  <Input innerRef={username}/>
+                  <Input className="input-field" innerRef={username}/>
                 </InputGroup>
                 <br/>
                 <InputGroup className="login-password">
                   <InputGroupAddon addonType="prepend">
-                    <InputGroupText>Password:</InputGroupText>
+                    <InputGroupText className="input-addon">Password:</InputGroupText>
                   </InputGroupAddon>
-                  <Input type='password' innerRef={password}/>
+                  <Input className="input-field" type='password' innerRef={password}/>
                 </InputGroup>
                 <br/>
                 <InputGroup className="register-verif-password" hidden={inputHidden}>
                   <InputGroupAddon addonType="prepend">
-                    <InputGroupText>Confirm Password:</InputGroupText>
+                    <InputGroupText className="input-addon">Confirm Password:</InputGroupText>
                   </InputGroupAddon>
-                  <Input type='password' innerRef={verif_password}/>
+                  <Input className="input-field" type='password' innerRef={verif_password}/>
                 </InputGroup>
                 <br/>
                 <InputGroup className="register-email" hidden={inputHidden}>
                   <InputGroupAddon addonType="prepend">
-                    <InputGroupText>Email:</InputGroupText>
+                    <InputGroupText className="input-addon">Email:</InputGroupText>
                   </InputGroupAddon>
-                  <Input innerRef={email}/>
+                  <Input className="input-field" innerRef={email}/>
                 </InputGroup>
               </ModalBody>
               <ModalFooter className="submit-btn-div">
               <div >
-                <Button className="submit-btn" onClick={handleLoginRegister}>{buttonVal}</Button>
+                <Button className="btn-submit" onClick={handleLoginRegister}>{buttonVal}</Button>
               </div>
               </ModalFooter>
           </div>
