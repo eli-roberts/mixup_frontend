@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react'
-import { Modal, Button, Fade, Tooltip, Pagination, PaginationItem, PaginationLink, ModalHeader, ModalBody, Container } from 'reactstrap'
+import { Modal, Button, Fade, Tooltip, Pagination, PaginationItem, PaginationLink, ModalHeader, ModalBody, ModalFooter, Container, InputGroup, Input, InputGroupAddon, InputGroupText } from 'reactstrap'
 import useSimpleAuth  from '../../hooks/auth'
 import './Home.css'
 
@@ -117,24 +117,56 @@ const Home = props => {
         </div>
       </Container>
       <Modal isOpen={modalToggle} toggle={toggleModal} className="login-register-modal">
-        <ModalHeader>
-          <Pagination>
-            <PaginationItem>
-              <PaginationLink active={loginActive} onClick={toggleLogin}>Login</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink active={registerActive} onClick={toggleRegister}>Register</PaginationLink>
-            </PaginationItem>
-          </Pagination>
-          <ModalBody>
-            <input type="text" ref={username} placeholder="username"/>
-            <input type="password" ref={password} placeholder="password"/>
-            <input hidden={inputHidden} ref={verif_password} type="password" placeholder="verify password"/>
-            <input hidden={inputHidden} ref={email} type="text" placeholder="email"/>
-            <Button onClick={handleLoginRegister}>{buttonVal}</Button>
-            
-          </ModalBody>
-        </ModalHeader>
+        <Container className="login-reg-container">
+          <div className="modal-header-btns">
+            <ModalHeader>
+              <Pagination>
+                <PaginationItem>
+                  <PaginationLink active={loginActive} onClick={toggleLogin}>Login</PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink active={registerActive} onClick={toggleRegister}>Register</PaginationLink>
+                </PaginationItem>
+              </Pagination>
+            </ModalHeader>
+          </div>
+          <div className="login-register-form">
+              <ModalBody>
+                <InputGroup className="login-username">
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupText>Username:</InputGroupText>
+                  </InputGroupAddon>
+                  <Input innerRef={username}/>
+                </InputGroup>
+                <br/>
+                <InputGroup className="login-password">
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupText>Password:</InputGroupText>
+                  </InputGroupAddon>
+                  <Input type='password' innerRef={password}/>
+                </InputGroup>
+                <br/>
+                <InputGroup className="register-verif-password" hidden={inputHidden}>
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupText>Confirm Password:</InputGroupText>
+                  </InputGroupAddon>
+                  <Input type='password' innerRef={verif_password}/>
+                </InputGroup>
+                <br/>
+                <InputGroup className="register-email" hidden={inputHidden}>
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupText>Email:</InputGroupText>
+                  </InputGroupAddon>
+                  <Input innerRef={email}/>
+                </InputGroup>
+              </ModalBody>
+              <ModalFooter className="submit-btn-div">
+              <div >
+                <Button className="submit-btn" onClick={handleLoginRegister}>{buttonVal}</Button>
+              </div>
+              </ModalFooter>
+          </div>
+        </Container>
       </Modal>
     </>
   )

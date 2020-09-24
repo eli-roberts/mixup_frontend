@@ -1,37 +1,54 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { 
   Navbar,
   Nav,
   NavItem,
   NavLink,
-  NavbarText
+  NavbarText,
+  NavbarBrand
 } from 'reactstrap'
+import './Navbar.css'
 
 
 
 const MixUpNav = props => {
-  const authorized = localStorage.getItem('auth_token')
+  const [auth, setAuth] = useState(false)
+
+  const checkAuth = () => {
+    const auth_check = localStorage.getItem('auth_token')
+    if(auth_check){
+      setAuth(true)
+    }
+  }
 
   
   const logout = () => {
     localStorage.removeItem("user_id")
     localStorage.removeItem("auth_token")
   }
+  useEffect(() => {
+    checkAuth()
+  }, [])
 
-  if(!authorized){
+  if(!auth){
     return(
       <> 
-        <Navbar color="light" expand="md">
-          <NavbarText>MixUp</NavbarText>
+        <Navbar className="navbar" expand="md">
+        <NavbarBrand className="nav-brand">
+          <img className="nav-logo" src="https://photofantastic.s3.us-east-2.amazonaws.com/navbar+logo.png"/>
+        </NavbarBrand>
         </Navbar>
       </>
     )
   }
 
+
   return(
     <>
-      <Navbar color="light" light expand="md">
-        <NavbarText>MixUp</NavbarText>
+      <Navbar light expand="md" className="navbar">
+        <NavbarBrand className="nav-brand">
+          <img className="nav-logo" src="https://photofantastic.s3.us-east-2.amazonaws.com/navbar+logo.png"/>
+        </NavbarBrand>
         <Nav>
           <NavItem>
             <NavLink href="/home">Home</NavLink>
