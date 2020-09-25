@@ -1,0 +1,12 @@
+.collab-name{
+  color: #FBB13C
+}
+
+.remove-btn{
+  color: #CB2D6F !important;
+  border: none !important;
+  background-color: #101010 !important;
+  height: 10%;
+  margin-bottom: 9px;
+  box-shadow: none !important;
+}

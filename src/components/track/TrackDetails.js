@@ -236,7 +236,9 @@ const TrackDetail = props => {
         </div>
         <div className="collaborators">
           <h3 className="collabs-header">Collaborators</h3>
+          <div className='collab-list'>
           {trackCollabs.map(collaborator => <CollaboratorList {...props} data={collaborator} creator={currIsCreator} key={collaborator.id}/>)}
+          </div>
         </div>
       </Container>
     </>

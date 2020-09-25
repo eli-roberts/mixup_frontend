@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {Button} from 'reactstrap'
 import api from '../../hooks/api'
+import './Collab.css'
 
 const CollaboratorList = props => {
   // const [isLoading, setIsLoading] = useState(true)
@@ -9,7 +10,8 @@ const CollaboratorList = props => {
   const collabData = props.data
   
   const removeCollaborator = () => {
-    api.delete('collaborators', collabData.collabId)
+    api.delete('collaborators', collabData.id)
+    .then(window.location.reload())
   }
 
   const getArtistInfo = () => {
@@ -38,11 +40,11 @@ const CollaboratorList = props => {
 
   return(
     <>
-      <p>{artistInfo.artist_name} </p>
+      <p className="collab-name">{artistInfo.artist_name} </p>
       {props.creator
       ?
       <>
-        <Button onClick={removeCollaborator}>Remove Collaborator</Button>
+        <Button className="remove-btn" size="sm" onClick={removeCollaborator}>Remove</Button>
       </>
       :
       null
