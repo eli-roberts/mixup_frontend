@@ -1,10 +1,11 @@
 import React, {useState, useEffect, useRef} from 'react'
 import api from '../../hooks/api'
-import {Button, Input} from 'reactstrap'
+import {Button, Input, Container} from 'reactstrap'
 import TrackFile from './TrackFile.js'
 import axios from 'axios'
 import {withRouter} from 'react-router-dom'
 import CollaboratorList from './Collaborators.js'
+import './Details.css'
 
 
 const TrackDetail = props => {
@@ -141,7 +142,9 @@ const TrackDetail = props => {
       'track_id': trackData.id,
       'file_url': fileLink,
     }
+    setUploadDiv(true)
     api.post('files', newFile)
+      .then(getFiles(trackId))
   }
 
   const createRemix = () => {
@@ -202,29 +205,40 @@ const TrackDetail = props => {
 
   return(
     <>
-      <h1>{trackData.track_name} - {trackCreator}</h1>
-      <Button hidden={deleteHidden} onClick={deleteTrack}>Delete</Button>
-      <Button hidden={deleteHidden} onClick={() => props.history.push(`/tracks/${trackId}/edit`)}>Edit</Button>
-      <h2>{trackGenre} | {trackData.bpm} BPM</h2>
-      <Button onClick={createRemix}>Remix</Button>
-      <hr />
-      <div className="track_files">
-        <div className="add_file"> 
-          <h3>Track Files</h3> 
-          <Button outline color="success" size="sm" onClick={toggleUploadDiv}>+</Button>
-          {files.map(file => <TrackFile {...props} data={file} key={file.id}/>)}
+      <Container className="track-details">
+        <div className="header-div">
+          <h1 className="track-name-creator">{trackData.track_name} - {trackCreator}</h1>
+          <div className="header-btn-div">
+            <Button className="edit-btn" hidden={deleteHidden} onClick={() => props.history.push(`/tracks/${trackId}/edit`)}>Edit</Button>
+            <Button className="delete-btn" hidden={deleteHidden} onClick={deleteTrack}>Delete</Button>
+          </div>
         </div>
-        <div hidden={uploadDiv}>
-          <Input placeholder="File Name" innerRef={fileName}/>
-          <Input placeholder="File Description" innerRef={fileDesc}/>
-          <input type="file" accept="audio/*" onChange={onUpload}/>
-          <Button onClick={handleUpload}>Upload</Button>
+        <hr className="divider"/>
+        <h2 className="genre-bpm">{trackGenre} | {trackData.bpm} BPM</h2>
+        <Button className="remix-btn" onClick={createRemix}>Remix</Button>
+        <hr className="top-"/>
+        <div className="track-files">
+          <div className="add-file">
+            <div className="track-files-upload">
+              <h3 className="track-files-header">Track Files</h3> 
+              <Button className="upload-btn" outline color="success" size="sm" onClick={toggleUploadDiv}>+</Button>
+            </div>
+          </div>
+            <div className="upload-div" hidden={uploadDiv}>
+              <Input className="input-field-1" placeholder="File Name" innerRef={fileName}/>
+              <Input className="input-field-1" placeholder="File Description" innerRef={fileDesc}/>
+              <Input className="input-file" type="file" accept="audio/*" onChange={onUpload}/>
+              <Button className="remix-btn" onClick={handleUpload}>Upload</Button>
+            </div>
+          <div className="files">
+            {files.map(file => <TrackFile {...props} data={file} key={file.id}/>)}
+          </div>
         </div>
-      </div>
-      <div className="collaborators">
-        <h3>Collaborators</h3>
-        {trackCollabs.map(collaborator => <CollaboratorList {...props} data={collaborator} creator={currIsCreator} key={collaborator.id}/>)}
-      </div>
+        <div className="collaborators">
+          <h3 className="collabs-header">Collaborators</h3>
+          {trackCollabs.map(collaborator => <CollaboratorList {...props} data={collaborator} creator={currIsCreator} key={collaborator.id}/>)}
+        </div>
+      </Container>
     </>
   )
 }

@@ -32,7 +32,7 @@ const TrackCard = props => {
     <>
       <Card className="track-card">
         <CardTitle className="card-title">{trackData.track_name}</CardTitle>
-        <CardSubtitle>Produced By: {trackCreator}</CardSubtitle>
+        <CardSubtitle className="card-producer">Produced By: {trackCreator}</CardSubtitle>
         <CardBody className="card-bpm">{trackData.bpm} BPM</CardBody>
         <CardBody className="card-genre">{trackGenre}</CardBody>
         <Button onClick={() => props.history.push(`/tracks/${trackData.id}`)} size="sm">Details</Button>
