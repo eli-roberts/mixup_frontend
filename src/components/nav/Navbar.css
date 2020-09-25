@@ -18,3 +18,13 @@
   margin-top: -20px;
   margin-right: 3.5em;
 }
+
+.nav-link{
+  color: #FBB13C;
+  font-weight: bold;
+}
+
+.nav-divider{
+  color: #101010;
+  font-weight: bold
+}

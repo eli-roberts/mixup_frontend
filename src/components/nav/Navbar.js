@@ -4,8 +4,8 @@ import {
   Nav,
   NavItem,
   NavLink,
-  NavbarText,
-  NavbarBrand
+  NavbarBrand,
+  NavbarText
 } from 'reactstrap'
 import './Navbar.css'
 
@@ -51,16 +51,27 @@ const MixUpNav = props => {
         </NavbarBrand>
         <Nav>
           <NavItem>
-            <NavLink href="/home">Home</NavLink>
+            <NavLink className="nav-link" href="/home">Home</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="/tracks/new">Create a Track</NavLink>
+            <NavbarText className="nav-divider">
+              |
+            </NavbarText>
           </NavItem>
           <NavItem>
-            <NavLink href="/tracks/remixable">Remix a Track</NavLink>
+            <NavLink className="nav-link" href="/tracks/new">Create a Track</NavLink>
           </NavItem>
+          <NavbarText>
+              |
+            </NavbarText>
           <NavItem>
-            <NavLink href="/" onClick={logout}>Log Out</NavLink>
+            <NavLink className="nav-link" href="/tracks/remixable">Remix a Track</NavLink>
+          </NavItem>
+          <NavbarText>
+              |
+            </NavbarText>
+          <NavItem>
+            <NavLink className="nav-link" href="/" onClick={logout}>Log Out</NavLink>
           </NavItem>
         </Nav>
       </Navbar>
