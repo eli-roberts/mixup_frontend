@@ -19,7 +19,6 @@ const RemixableTrackList = props => {
 
   return(
     <>
-      <h1>Hello</h1>
       <div className="track-cards">
         {tracks.map(track => <TrackCard {...props} data={track} key={track.id}/>)}
       </div>

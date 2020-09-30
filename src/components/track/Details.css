@@ -1,0 +1,161 @@
+.track-details{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #CB2D6F
+}
+
+.header-btn-div{
+  display: flex;
+  justify-content: space-evenly;
+  border-bottom: 1px solid #CB2D6F;
+  padding-bottom: 15px;
+}
+
+
+.track-name-creator{
+  color: #FBB13C;
+  font-weight: bold;
+}
+
+.edit-btn{
+  background-color: #FBB13C;
+  border: none;
+  color: #202020;
+}
+
+.edit-btn:hover{
+  border: .8px solid #FBB13C;
+  background-color: #202020;
+  color: #FBB13C
+}
+
+.delete-btn{
+  background-color: #CB2D6F;
+  color: #202020;
+  border: none;
+}
+.delete-btn:hover{
+  background-color: #202020;
+  color: #CB2D6F;
+  border: .8px solid #CB2D6F;
+}
+
+.header-btn{
+  border-bottom: 1px solid #CB2D6F
+}
+
+.genre-bpm{
+  color: #FBB13C;
+  opacity: 85%;
+  font-style: italic;
+  padding-bottom: 1em;
+}
+
+.remix-btn{
+  border: .8px solid #3a3a3a;
+  background-color: #FBB13C;
+  color: #202020;
+}
+
+.remix-btn:hover{
+  border: .8px solid #3a3a3a;
+  background-color: #CB2D6F;
+  color: #202020;
+}
+
+.track-files{
+  width: 83%;
+  border-top: solid #CB2D6F 3px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.track-files-upload{
+  display: flex;
+  align-items: center;
+
+}
+
+.add-file{
+  display: flex;
+  flex-direction: column;
+  max-width: 28%
+}
+
+.upload-btn{
+  border: none;
+  height: 1%;
+  margin-top: 4px;
+  margin-left: 7px;
+  color: #FBB13C;
+  z-index: 1;
+}
+
+.upload-btn:hover{
+  color: #202020;
+  background-color: #FBB13C
+}
+.upload-btn:focus{
+  box-shadow: none;
+}
+
+.track-files-header{
+  color: #FBB13C;
+  z-index: 2;
+}
+
+.upload-div{
+  width: 30%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 2em;
+}
+
+.input-field-1{
+  color: #FBB13C !important;
+  background-color: #3a3a3a !important;
+  border-bottom:  #CB2D6F solid 1.75px;
+  border-top: none;
+  border-right: none;
+  border-left: 1.75px solid #CB2D6F;
+  margin-bottom: 3px;
+}
+.input-field-1:focus{
+  border-bottom:  #FBB13C solid 1.75px;
+  border-top: none;
+  border-right: none;
+  border-left: 1.75px solid #FBB13C;
+  box-shadow: none;
+}
+
+.input-file{
+  color: #FBB13C;
+  margin-bottom: 1em;
+}
+
+.files{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2em;
+}
+
+.collabs-header{
+  color: #FBB13C
+}
+
+.collaborators{
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.collab-list{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}

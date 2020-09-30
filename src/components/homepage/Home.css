@@ -1,3 +1,7 @@
+body{
+  background-color: #101010;
+}
+
 .header-btns{
   display: flex;
   flex-direction: column;
@@ -6,4 +10,180 @@
 
 .home-header{
   padding-bottom: 1.5em;
+}
+
+.login-register-modal{
+  max-width: 50%;
+}
+
+.login-reg-container{
+  display: flex;
+  flex-direction: column;
+  background-color: #101010;
+  align-items: center;
+}
+
+.login-register-form{
+  display:flex;
+  flex-direction: column;
+  max-width: 75%
+}
+
+.submit-btn-div{
+  display: flex;
+  justify-content: center;
+  border-top: #FBB13C solid 1.75px;
+
+}
+
+.homepage-logo{
+  max-width: 100%;
+  height: 600px;
+  padding-bottom: 0px;
+  margin-bottom: -140px;
+}
+
+.login-register-btns{
+  width: 500px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.btn-login{
+  color:#101010;
+  font-weight: bold;
+  background-color: #FBB13C;
+  border: none;
+  width: 16%;
+}
+
+.btn-login:focus{
+  color:#101010;
+  font-weight: bold;
+  background-color: #FBB13C;
+  border: none;
+  box-shadow: none;
+}
+
+.btn-register{
+  color:#101010;
+  font-weight: bold;
+  background-color: #FBB13C;
+  border: none;
+  width: 17%;
+}
+
+.btn-login:hover{
+  color: #101010;
+  font-style: italic;
+  background-color: #CB2D6F;
+  border: none; 
+}
+
+.btn-register:focus{
+  color:#101010;
+  font-weight: bold;
+  background-color: #FBB13C;
+  border: none;
+  box-shadow: none;
+}
+
+.btn-register:hover{
+  color:#101010;
+  font-style: italic;
+  background-color:#CB2D6F;
+  border: none;
+  width: 17%;
+}
+
+.login-active{
+  background-color: #CB2D6F;
+  color: #101010; 
+  border: none;
+}
+.login-active:focus{
+  outline: none;
+  box-shadow: none;
+  border-bottom: 2.5px solid #FBB13C;
+}
+.register-active:focus{
+  outline: none;
+  box-shadow: none;
+  border-bottom: 2.5px solid #FBB13C;
+}
+
+
+.register-active{
+  background-color: #CB2D6F;
+  color: #101010; 
+  border: none;
+}
+
+.login-active:hover{
+  background-color: #CB2D6F;
+  color:#FBB13C; 
+  border: none;
+  border-bottom: 2.5px solid #FBB13C;
+}
+
+.register-active:hover{
+  background-color: #CB2D6F;
+  color: #FBB13C; 
+  border: none;
+  border-bottom: 2.5px solid #FBB13C;
+
+}
+
+.input-addon{
+  color: #FBB13C;
+  background-color:#202020;
+  border-left:  #CB2D6F solid 1.75px;
+  border-bottom:  #CB2D6F solid 1.75px;
+  border-top: none;
+  border-right: none;
+}
+.input-field{
+  color: #FBB13C;
+  background-color: #3a3a3a;
+  border-bottom:  #CB2D6F solid 1.75px;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+}
+
+.input-field:focus{
+  color: #FBB13C;
+  background-color: #3a3a3a;
+  border-bottom:  #CB2D6F solid 1.75px;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  box-shadow: none;
+  border-bottom: 2.5px solid #FBB13C
+}
+
+.modal-header{
+  border-bottom:  #FBB13C solid 1.75px;;
+}
+
+.btn-submit{
+  color:#101010;
+  font-weight: bold;
+  background-color: #FBB13C;
+  border: none;
+}
+
+.btn-submit:focus{
+  color:#101010;
+  font-weight: bold;
+  background-color: #FBB13C;
+  border: none;
+  box-shadow: none;
+}
+
+.btn-submit:hover{
+  color: #101010;
+  font-style: italic;
+  background-color: #CB2D6F;
+  border: none; 
 }

@@ -1,4 +1,5 @@
 .main-container{
+  width: 120%;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -24,4 +25,46 @@
 .button-container{
   display: flex;
   justify-content: space-evenly
+}
+
+.banner-container{
+  margin-top: 10px;
+  width: 200%;
+  display: flex;
+  justify-content: space-around;
+  max-height: 720px
+}
+
+/* .banner-1{
+  border: 1px solid red;
+  background-color: orange;
+}
+
+.banner-2{
+  border: 1px solid green;
+  background-color: chartreuse
+} */
+
+.banner-left{
+  width: auto;
+  height: 700px;
+}
+.banner-center{
+  width: auto;
+  height: 700px
+}
+
+.banner-right{
+  width: auto;
+  height: 700px
+}
+.banner-left:hover{
+  border-bottom: 7px solid #FBB13C
+}
+.banner-center:hover{
+  border-bottom: 7px solid #CB2D6F
+}
+
+.banner-right:hover{
+  border-bottom: 7px solid #FBB13C
 }

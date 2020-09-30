@@ -1,20 +1,60 @@
 .track-card{
-  max-width: 18%;
+  width: 18%;
   display: flex;
   align-items: center;
+  margin-right: 1em;
+  margin-left: 1em;
+  margin-top: 1.5em;
+  background-color: #3a3a3a;
+  border-left: 3.9px solid#CB2D6F;
+  border-bottom: 3.9px solid#CB2D6F;
+  padding: 5px;
+}
+
+.track-card:hover{
+  border-left: 3.9px solid #FBB13C;
+  border-bottom: 3.9px solid #FBB13C;
 }
 
 .card-bpm{
   padding-top: 5px;
   padding-bottom: 0px;
+  font-style: italic;
+  color:  #FBB13C;
 }
 
 .card-genre{
   padding-top: 0px;
-  padding-bottom: 3px
+  padding-bottom: 3px;
+  font-style: italic;
+  color:  #FBB13C;
 }
 
 .card-title{
   font-weight: bold;
-  border-bottom: 1px solid black
+  border-bottom: 1.5px solid #101010;
+  color:  #FBB13C;
+}
+
+.card-producer{
+  color:  #FBB13C;
+}
+
+.details-btn{
+  border: none;
+  color: #101010;
+  background-color: #CB2D6F;
+  box-shadow: none;
+}
+
+.details-btn:hover{
+  border: 1px solid #CB2D6F;
+  background-color: #3a3a3a;
+  color: #CB2D6F
+}
+
+.details-btn:focus{
+  box-shadow: none;
+  color: #101010;
+  background-color: #CB2D6F;
 }

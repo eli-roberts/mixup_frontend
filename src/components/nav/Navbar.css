@@ -1,0 +1,30 @@
+.navbar{
+  background-color: #842049;
+}
+
+.nav-logo{
+  max-height: 250%;
+  max-width: 450%;
+  padding: 0px;
+  margin: 0px;
+}
+
+.nav-brand{
+  max-width: 2%;
+  max-height: 6%;
+  padding-left: 0px;
+  margin-left: -35px;
+  margin-bottom: -25px;
+  margin-top: -20px;
+  margin-right: 3.5em;
+}
+
+.nav-link{
+  color: #FBB13C;
+  font-weight: bold;
+}
+
+.nav-divider{
+  color: #101010;
+  font-weight: bold
+}

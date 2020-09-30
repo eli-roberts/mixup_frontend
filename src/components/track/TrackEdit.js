@@ -76,26 +76,26 @@ const TrackEdit = props => {
 
   return (
     <>
-      <Container className="temp">
+      <Container className="create-form-container">
         <div className="create-track-input">
           <InputGroup className="track-name-input">
             <InputGroupAddon addonType="prepend">
-              <InputGroupText>Track Name</InputGroupText>
+              <InputGroupText className='input-addon'>Track Name</InputGroupText>
             </InputGroupAddon>
-            <Input value={trackName} onChange={e => setTrackName(e.target.value)}/>
+            <Input className="input-field" value={trackName} onChange={e => setTrackName(e.target.value)}/>
           </InputGroup>
 
           <br />
         
           <InputGroup>
           <InputGroupAddon addonType="prepend">
-            <InputGroupText>Select Genre</InputGroupText>
+            <InputGroupText className='input-addon-1'>Select Genre</InputGroupText>
           </InputGroupAddon>
             <Dropdown isOpen={dropdown} toggle={toggleDrop}>
               <DropdownToggle caret>
                 {genreSelection}
               </DropdownToggle>
-              <DropdownMenu>
+              <DropdownMenu className="dropdown-main">
                 {genres.map(
                   genre => <DropdownItem  
                   key={genre.key} 
@@ -108,12 +108,12 @@ const TrackEdit = props => {
           <br/>
           <InputGroup>
             <InputGroupAddon addonType="prepend">
-              <InputGroupText>
+              <InputGroupText className='input-addon'>
                 Available to remix?
               </InputGroupText>
             </InputGroupAddon>
             <InputGroupAddon addonType="append">
-              <InputGroupText>
+              <InputGroupText className="checkbox-bg">
                 <Input addon type="checkbox" onChange={() => setRemixable(!remixable)}/>
               </InputGroupText>
             </InputGroupAddon>
@@ -121,14 +121,14 @@ const TrackEdit = props => {
           <br/>
           <InputGroup>
             <InputGroupAddon addonType="prepend">
-              <InputGroupText>
+              <InputGroupText className='input-addon'>
                 Track Tempo
               </InputGroupText>
             </InputGroupAddon>
-            <Input type="number" value={bpm} onChange={e => setBpm(e.target.value)} />
+            <Input className="input-field" type="number" value={bpm} onChange={e => setBpm(e.target.value)} />
           </InputGroup>
           <br/>
-        <Button onClick={submit} className="submit-btn">Submit</Button>
+        <Button  onClick={submit} className="submit-btn">Submit</Button>
         </div>
       </Container>
     </>
